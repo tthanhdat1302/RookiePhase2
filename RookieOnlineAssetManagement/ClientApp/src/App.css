@@ -1,0 +1,17 @@
+.right_session{
+  padding-top: 40px;
+}
+
+#firstRowInRight{
+  color:rgb(207, 35, 56);
+  margin-bottom: 23px;
+}
+
+#secondRowInRight{
+  margin-bottom: 15px;
+  vertical-align:middle;
+}
+
+.validateErr{
+  color: red;
+}
