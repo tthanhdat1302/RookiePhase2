@@ -1,4 +1,6 @@
 
+using System;
+
 namespace RookieOnlineAssetManagement.Models
 {
     public class CreateUserModel

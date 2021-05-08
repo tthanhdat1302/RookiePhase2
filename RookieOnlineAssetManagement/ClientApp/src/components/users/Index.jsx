@@ -46,7 +46,6 @@ export default function Index() {
   };
 
   const BtnSearch = () => {
-    try {
       if (searchInput != "") {
         setUserList(
           getUserList.filter(
@@ -58,10 +57,26 @@ export default function Index() {
         );
       } else {
         setUserList(getUserList);
-      }
-    } catch (err) {}
+    }
   };
 
+  const onDisableUser=(id)=>{
+    dispatch(userManage.disable_user(id))
+  }
+
+  const onFilterType=(e)=>{
+    switch(e.value){
+      case null:
+        setUserList(getUserList)
+        break
+      case true:
+        setUserList(getUserList.filter(x=>x.type===true))
+        break
+      case false:
+        setUserList(getUserList.filter(x=>x.type===false))
+        break
+    }
+  }
   return (
     <div>
       <Header page="Manage User"></Header>
@@ -79,12 +94,12 @@ export default function Index() {
 
             <div className="row" id="secondRowInRight">
               <div className="col-3">
-                <Select options={options} placeholder="Type"></Select>
+                <Select options={options} placeholder="Type" onChange={onFilterType}></Select>
               </div>
               <div className="col-6" id="searchInput">
                 <Input onChange={onChangeSearch}></Input>
-                <Button color="primary">
-                  <FontAwesomeIcon icon={faSearch} onClick={BtnSearch} />
+                <Button color="primary" onClick={BtnSearch}>
+                  <FontAwesomeIcon icon={faSearch} />
                 </Button>
               </div>
               <div className="col-3">
@@ -117,10 +132,10 @@ export default function Index() {
                     <td>{user.type ? "Admin" : "Staff"}</td>
 
                     <td id="userListLastTd">
-                      <FontAwesomeIcon icon={faPen} />
+                      <FontAwesomeIcon icon={faPen} className="cursorIcon" onClick={()=>history.push(`/user/edit/${user.id}`)}/>
                     </td>
                     <td id="userListLastTd">
-                      <FontAwesomeIcon icon={faTimesCircle} color="red" />
+                      <FontAwesomeIcon icon={faTimesCircle} color="red" onClick={()=>onDisableUser(user.id)} className="cursorIcon" />
                     </td>
                   </tr>
                 ))}

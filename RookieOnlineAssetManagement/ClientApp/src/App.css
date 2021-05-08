@@ -15,3 +15,7 @@
 .validateErr{
   color: red;
 }
+
+.cursorIcon{
+  cursor: pointer;
+}

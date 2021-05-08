@@ -1,4 +1,6 @@
-﻿namespace RookieOnlineAssetManagement.Models
+﻿using System;
+
+namespace RookieOnlineAssetManagement.Models
 {
     public class UserModel
     {

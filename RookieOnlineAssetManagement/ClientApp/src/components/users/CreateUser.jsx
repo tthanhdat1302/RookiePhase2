@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../fragments/Header";
 import LeftSesstion from "../fragments/LeftSession";
-import Axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as userManage from "../../actions/user";
-import { Input, Button,Label } from "reactstrap";
+import { Input, Button } from "reactstrap";
 import "../../css/user_css/create.css";
 import Select from "react-select";
 import DateTimePicker from 'react-datetime-picker';
@@ -20,8 +19,8 @@ export default function CreateUser() {
   const [createUser, setCreateUser] = useState({
     FirstName: "",
     LastName: "",
-    DateOfBirth: dateOfBirth.toLocaleDateString(),
-    JoinedDate: joinedDate.toLocaleDateString(),
+    DateOfBirth: dateOfBirth,
+    JoinedDate: joinedDate,
     Gender: null,
     Type: null,
   });
@@ -38,12 +37,12 @@ export default function CreateUser() {
 
   useEffect(() => {
     if (
-      createUser.FirstName != "" &&
-      createUser.LastName != "" &&
-      createUser.DateOfBirth != "" &&
-      createUser.JoinedDate != "" &&
-      createUser.Type != null &&
-      createUser.Gender!=null
+      createUser.FirstName !== "" &&
+      createUser.LastName !== "" &&
+      createUser.DateOfBirth !== "" &&
+      createUser.JoinedDate !== "" &&
+      createUser.Type !== null &&
+      createUser.Gender!==null
     ) {
       setBtnDisable(false);
     } else {
@@ -57,7 +56,7 @@ export default function CreateUser() {
     const checkDay=joinedDate.getDate()-dateOfBirth.getDate();
     const checkMonth=joinedDate.getMonth()-dateOfBirth.getMonth();
     const checkYear=joinedDate.getFullYear()-dateOfBirth.getFullYear();
-    if(checkDay>=0&&checkMonth>=0&&checkYear>=18)
+    if(checkDay>=0&&checkMonth==0&&checkYear==18||checkYear>18||checkYear==18&&checkMonth>0)
     { 
       dispatch(userManage.add_user(createUser));
     }
@@ -72,11 +71,11 @@ export default function CreateUser() {
   ];
 
   useEffect(()=>{
-    setCreateUser({...createUser,DateOfBirth:dateOfBirth.toLocaleDateString()})
+    setCreateUser({...createUser,DateOfBirth:dateOfBirth!=null?dateOfBirth.toLocaleDateString():""})
   },[dateOfBirth])
 
   useEffect(()=>{
-    setCreateUser({...createUser,JoinedDate:joinedDate.toLocaleDateString()})
+    setCreateUser({...createUser,JoinedDate:joinedDate!=null?joinedDate.toLocaleDateString():""})
   },[joinedDate])
 
   return (

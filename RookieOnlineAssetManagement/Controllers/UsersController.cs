@@ -31,8 +31,15 @@ namespace RookieOnlineAssetManagement.Controllers
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
             return await _dbContext.Users
-                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type,Disable=x.Disable})
+                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type,Disable=x.Disable}).Where(x=>x.Disable==false)
                 .ToListAsync();
+        }
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserModel>> GetUsersById(int id)
+        {
+            return await _dbContext.Users
+                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type,Disable=x.Disable}).FirstOrDefaultAsync(x=>x.Disable==false&&x.Id==id);
         }
 
         [HttpPost]
