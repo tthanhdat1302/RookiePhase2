@@ -9,7 +9,7 @@ import "../../css/user_css/create.css";
 import Select from "react-select";
 import DateTimePicker from 'react-datetime-picker';
 
-export default function CreateUser() {
+export default function UpdateUser() {
   const dispatch = useDispatch();
   const history=useHistory();
   let {id}=useParams();
@@ -35,7 +35,7 @@ export default function CreateUser() {
       setJoinedDate(new Date(userByid.joinedDate))
   },[userByid.joinedDate])
 
-  const [createUser, setCreateUser] = useState({
+  const [updateUser, setUpdateUser] = useState({
     DateOfBirth: stateDateOfBirth,
     JoinedDate: stateJoinedDate,
     Gender: null,
@@ -43,37 +43,37 @@ export default function CreateUser() {
   });
 
   useEffect(()=>{
-    setCreateUser({...createUser,Gender:userByid.gender,Type:userByid.type})
+    setUpdateUser({...updateUser,Gender:userByid.gender,Type:userByid.type})
   },[userByid])
 
   const [btnDisable, setBtnDisable] = useState(true);
 
   const onSelectType = (e) => {
-    setCreateUser({ ...createUser, Type: e.value });
+    setUpdateUser({ ...updateUser, Type: e.value });
   };
 
   useEffect(() => {
     if (
-      createUser.DateOfBirth !== null &&
-      createUser.JoinedDate !== null &&
-      createUser.Type !== null &&
-      createUser.Gender!==null
+      updateUser.DateOfBirth !== null &&
+      updateUser.JoinedDate !== null &&
+      updateUser.Type !== null &&
+      updateUser.Gender!==null
     ) {
       setBtnDisable(false);
     } else {
       setBtnDisable(true);
     }
-  }, [createUser]);
+  }, [updateUser]);
 
   const [err,setErr]=useState({Check18YearsOld:""})
 
-  const onCreate = () => {
+  const onUpdate = () => {
     const checkDay=stateJoinedDate.getDate()-stateDateOfBirth.getDate();
     const checkMonth=stateJoinedDate.getMonth()-stateDateOfBirth.getMonth();
     const checkYear=stateJoinedDate.getFullYear()-stateDateOfBirth.getFullYear();
     if(checkDay>=0&&checkMonth==0&&checkYear==18||checkYear>18||checkYear==18&&checkMonth>0)
     { 
-      dispatch(userManage.add_user(createUser));
+      dispatch(userManage.update_user(id,updateUser));
     }
     else{
       setErr({...err,Check18YearsOld:"Chưa đủ 18 tuổi !"})
@@ -86,11 +86,11 @@ export default function CreateUser() {
   ];
 
   useEffect(()=>{
-    setCreateUser({...createUser,DateOfBirth:stateDateOfBirth!=null?stateDateOfBirth:null})
+    setUpdateUser({...updateUser,DateOfBirth:stateDateOfBirth!=null?stateDateOfBirth:null})
   },[stateDateOfBirth])
 
   useEffect(()=>{
-    setCreateUser({...createUser,JoinedDate:stateJoinedDate!=null?stateJoinedDate:null})
+    setUpdateUser({...updateUser,JoinedDate:stateJoinedDate!=null?stateJoinedDate:null})
   },[stateJoinedDate])
 
   return (
@@ -151,10 +151,10 @@ export default function CreateUser() {
                 <div className="col-8">
                   <div className="row">
                     <div className="col-4 radioBtnCreateUser">
-                      <Input type="radio" value={true} onClick={()=>setCreateUser({...createUser,Gender:true})} checked={createUser.Gender===true} /> Male
+                      <Input type="radio" value={true} onClick={()=>setUpdateUser({...updateUser,Gender:true})} checked={updateUser.Gender===true} /> Male
                     </div>
                     <div className="col-8">
-                      <Input type="radio" value={false} onClick={()=>setCreateUser({...createUser,Gender:false})} checked={createUser.Gender===false} /> Female
+                      <Input type="radio" value={false} onClick={()=>setUpdateUser({...updateUser,Gender:false})} checked={updateUser.Gender===false} /> Female
                     </div>
                   </div>               
                 </div>
@@ -178,7 +178,7 @@ export default function CreateUser() {
                   <Select
                     options={optionsType}
                     onChange={onSelectType}
-                    placeholder={createUser.Type===true?"Admin":"Staff"}
+                    placeholder={updateUser.Type===true?"Admin":"Staff"}
                   ></Select>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function CreateUser() {
             <div className="row">
               <div className="col-6"></div>
               <div className="col-3">
-                <Button onClick={onCreate} disabled={btnDisable} color="danger">
+                <Button onClick={onUpdate} disabled={btnDisable} color="danger">
                   Save
                 </Button>
               </div>

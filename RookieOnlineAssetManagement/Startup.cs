@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RookieOnlineAssetManagement.Data;
 using RookieOnlineAssetManagement.Entities;
+using RookieOnlineAssetManagement.Services;
 using System.Threading.Tasks;
 
 namespace RookieOnlineAssetManagement
@@ -55,6 +56,7 @@ namespace RookieOnlineAssetManagement
 
             services.AddCors();
 
+            services.AddTransient<IUserService,UserService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

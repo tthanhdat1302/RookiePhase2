@@ -249,7 +249,7 @@ namespace RookieOnlineAssetManagement.Migrations
                 });
 
             modelBuilder.Entity<User>().HasData(
-      new User{Id=1, StaffCode = "SD0001",Gender=true, Type = true,DateOfBirth=new DateTime(1999,2,13),JoinedDate=new DateTime(2021,3,15), UserName = "admin", Password = "admin", FirstName = "Dat", LastName = "Tran Thanh" });
+      new User { Id = 1, StaffCode = "SD0001", Gender = true, Type = true, DateOfBirth = new DateTime(1999, 2, 13), JoinedDate = new DateTime(2021, 3, 15), UserName = "admin", Password = "admin", FirstName = "Dat", LastName = "Tran Thanh" });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {

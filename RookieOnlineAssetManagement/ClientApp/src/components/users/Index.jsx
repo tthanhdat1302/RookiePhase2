@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
-import Popup from 'reactjs-popup'
+import Popup from "reactjs-popup";
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -47,37 +47,37 @@ export default function Index() {
   };
 
   const BtnSearch = () => {
-      if (searchInput != "") {
-        setUserList(
-          getUserList.filter(
-            (x) =>
-              x.staffCode == searchInput ||
-              x.lastName.toLowerCase().startsWith(searchInput.toLowerCase()) ||
-              x.firstName.toLowerCase().startsWith(searchInput.toLowerCase())
-          )
-        );
-      } else {
-        setUserList(getUserList);
+    if (searchInput != "") {
+      setUserList(
+        getUserList.filter(
+          (x) =>
+            x.staffCode == searchInput ||
+            x.lastName.toLowerCase().startsWith(searchInput.toLowerCase()) ||
+            x.firstName.toLowerCase().startsWith(searchInput.toLowerCase())
+        )
+      );
+    } else {
+      setUserList(getUserList);
     }
   };
 
-  const onDisableUser=(id)=>{
-    dispatch(userManage.disable_user(id))
-  }
+  const onDisableUser = (id) => {
+    dispatch(userManage.disable_user(id));
+  };
 
-  const onFilterType=(e)=>{
-    switch(e.value){
+  const onFilterType = (e) => {
+    switch (e.value) {
       case null:
-        setUserList(getUserList)
-        break
+        setUserList(getUserList);
+        break;
       case true:
-        setUserList(getUserList.filter(x=>x.type===true))
-        break
+        setUserList(getUserList.filter((x) => x.type === true));
+        break;
       case false:
-        setUserList(getUserList.filter(x=>x.type===false))
-        break
+        setUserList(getUserList.filter((x) => x.type === false));
+        break;
     }
-  }
+  };
   return (
     <div>
       <Header page="Manage User"></Header>
@@ -95,7 +95,11 @@ export default function Index() {
 
             <div className="row" id="secondRowInRight">
               <div className="col-3">
-                <Select options={options} placeholder="Type" onChange={onFilterType}></Select>
+                <Select
+                  options={options}
+                  placeholder="Type"
+                  onChange={onFilterType}
+                ></Select>
               </div>
               <div className="col-6" id="searchInput">
                 <Input onChange={onChangeSearch}></Input>
@@ -133,33 +137,55 @@ export default function Index() {
                     <td>{user.type ? "Admin" : "Staff"}</td>
 
                     <td id="userListLastTd">
-                      <FontAwesomeIcon icon={faPen} className="cursorIcon" onClick={()=>history.push(`/user/edit/${user.id}`)}/>
+                      <FontAwesomeIcon
+                        icon={faPen}
+                        className="cursorIcon"
+                        onClick={() => history.push(`/user/edit/${user.id}`)}
+                      />
                     </td>
                     <td id="userListLastTd">
-                    <Popup modal trigger={<FontAwesomeIcon icon={faTimesCircle} color="red" className="cursorIcon" />}>
-                      {close =><div className="popupDisable">
-                        <div className="row row1">
-                          <div className="col-12">
-                            <label>Are you sure?</label>
-                          </div>
-                        </div>
-                        <div className="row row2">
-                          <div className="row row2_1">
-                            <div className="col-12">
-                              <label>Do you want to disable this user?</label>
+                      <Popup
+                        modal
+                        trigger={
+                          <FontAwesomeIcon
+                            icon={faTimesCircle}
+                            color="red"
+                            className="cursorIcon"
+                          />
+                        }
+                      >
+                        {(close) => (
+                          <div className="popupDisable">
+                            <div className="row row1">
+                              <div className="col-12">
+                                <label>Are you sure?</label>
+                              </div>
+                            </div>
+                            <div className="row row2">
+                              <div className="row row2_1">
+                                <div className="col-12">
+                                  <label>
+                                    Do you want to disable this user?
+                                  </label>
+                                </div>
+                              </div>
+                              <div className="row row2_2">
+                                <div className="col-2">
+                                  <Button
+                                    color="danger"
+                                    onClick={() => onDisableUser(user.id)}
+                                  >
+                                    Disable
+                                  </Button>
+                                </div>
+                                <div className="col-2">
+                                  <Button onClick={close}>Cancel</Button>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <div className="row row2_2">
-                            <div className="col-2">
-                              <Button color="danger" onClick={()=>onDisableUser(user.id)} >Disable</Button>
-                            </div>
-                            <div className="col-2">
-                              <Button onClick={close} >Cancel</Button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>}
-                    </Popup>                   
+                        )}
+                      </Popup>
                     </td>
                   </tr>
                 ))}
