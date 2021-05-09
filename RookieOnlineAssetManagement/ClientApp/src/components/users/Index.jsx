@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
+import Popup from 'reactjs-popup'
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -127,7 +128,7 @@ export default function Index() {
 
                     <td>{user.userName}</td>
 
-                    <td>{user.joinedDate}</td>
+                    <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
 
                     <td>{user.type ? "Admin" : "Staff"}</td>
 
@@ -135,7 +136,30 @@ export default function Index() {
                       <FontAwesomeIcon icon={faPen} className="cursorIcon" onClick={()=>history.push(`/user/edit/${user.id}`)}/>
                     </td>
                     <td id="userListLastTd">
-                      <FontAwesomeIcon icon={faTimesCircle} color="red" onClick={()=>onDisableUser(user.id)} className="cursorIcon" />
+                    <Popup modal trigger={<FontAwesomeIcon icon={faTimesCircle} color="red" className="cursorIcon" />}>
+                      {close =><div className="popupDisable">
+                        <div className="row row1">
+                          <div className="col-12">
+                            <label>Are you sure?</label>
+                          </div>
+                        </div>
+                        <div className="row row2">
+                          <div className="row row2_1">
+                            <div className="col-12">
+                              <label>Do you want to disable this user?</label>
+                            </div>
+                          </div>
+                          <div className="row row2_2">
+                            <div className="col-2">
+                              <Button color="danger" onClick={()=>onDisableUser(user.id)} >Disable</Button>
+                            </div>
+                            <div className="col-2">
+                              <Button onClick={close} >Cancel</Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>}
+                    </Popup>                   
                     </td>
                   </tr>
                 ))}

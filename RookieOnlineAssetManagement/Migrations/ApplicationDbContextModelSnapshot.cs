@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RookieOnlineAssetManagement.Data;
+using RookieOnlineAssetManagement.Entities;
 
 namespace RookieOnlineAssetManagement.Migrations
 {
@@ -167,8 +168,8 @@ namespace RookieOnlineAssetManagement.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Disable")
                         .HasColumnType("bit");
@@ -186,8 +187,8 @@ namespace RookieOnlineAssetManagement.Migrations
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JoinedDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("JoinedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -205,6 +206,9 @@ namespace RookieOnlineAssetManagement.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -243,6 +247,9 @@ namespace RookieOnlineAssetManagement.Migrations
 
                     b.ToTable("AspNetUsers");
                 });
+
+            modelBuilder.Entity<User>().HasData(
+      new User{Id=1, StaffCode = "SD0001",Gender=true, Type = true,DateOfBirth=new DateTime(1999,2,13),JoinedDate=new DateTime(2021,3,15), UserName = "admin", Password = "admin", FirstName = "Dat", LastName = "Tran Thanh" });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {

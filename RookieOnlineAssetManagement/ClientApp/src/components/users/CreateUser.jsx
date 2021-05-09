@@ -39,8 +39,8 @@ export default function CreateUser() {
     if (
       createUser.FirstName !== "" &&
       createUser.LastName !== "" &&
-      createUser.DateOfBirth !== "" &&
-      createUser.JoinedDate !== "" &&
+      createUser.DateOfBirth !== null &&
+      createUser.JoinedDate !== null &&
       createUser.Type !== null &&
       createUser.Gender!==null
     ) {
@@ -71,11 +71,11 @@ export default function CreateUser() {
   ];
 
   useEffect(()=>{
-    setCreateUser({...createUser,DateOfBirth:dateOfBirth!=null?dateOfBirth.toLocaleDateString():""})
+    setCreateUser({...createUser,DateOfBirth:dateOfBirth!=null?dateOfBirth:null})
   },[dateOfBirth])
 
   useEffect(()=>{
-    setCreateUser({...createUser,JoinedDate:joinedDate!=null?joinedDate.toLocaleDateString():""})
+    setCreateUser({...createUser,JoinedDate:joinedDate!=null?joinedDate:null})
   },[joinedDate])
 
   return (

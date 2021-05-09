@@ -74,7 +74,8 @@ namespace RookieOnlineAssetManagement.Controllers
                 JoinedDate = createUserModel.JoinedDate,
                 Gender = createUserModel.Gender,
                 Type = createUserModel.Type,
-                Disable=false
+                Disable=false,
+                Password="1"
             };
 
             _dbContext.Users.Add(user);

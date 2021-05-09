@@ -22,12 +22,22 @@ export default function CreateUser() {
 
   let userByid=getUserById;
 
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [joinedDate, setJoinedDate] = useState(new Date());
+  const [stateDateOfBirth, setDateOfBirth] = useState(new Date());
+  const [stateJoinedDate, setJoinedDate] = useState(new Date());
+
+  useEffect(()=>{
+    if(userByid.dateOfBirth!=undefined)
+      setDateOfBirth(new Date(userByid.dateOfBirth))
+  },[userByid.dateOfBirth])
+
+  useEffect(()=>{
+    if(userByid.joinedDate!=undefined)
+      setJoinedDate(new Date(userByid.joinedDate))
+  },[userByid.joinedDate])
 
   const [createUser, setCreateUser] = useState({
-    DateOfBirth: dateOfBirth,
-    JoinedDate: joinedDate,
+    DateOfBirth: stateDateOfBirth,
+    JoinedDate: stateJoinedDate,
     Gender: null,
     Type: null,
   });
@@ -44,8 +54,8 @@ export default function CreateUser() {
 
   useEffect(() => {
     if (
-      createUser.DateOfBirth !== "" &&
-      createUser.JoinedDate !== "" &&
+      createUser.DateOfBirth !== null &&
+      createUser.JoinedDate !== null &&
       createUser.Type !== null &&
       createUser.Gender!==null
     ) {
@@ -58,9 +68,9 @@ export default function CreateUser() {
   const [err,setErr]=useState({Check18YearsOld:""})
 
   const onCreate = () => {
-    const checkDay=joinedDate.getDate()-dateOfBirth.getDate();
-    const checkMonth=joinedDate.getMonth()-dateOfBirth.getMonth();
-    const checkYear=joinedDate.getFullYear()-dateOfBirth.getFullYear();
+    const checkDay=stateJoinedDate.getDate()-stateDateOfBirth.getDate();
+    const checkMonth=stateJoinedDate.getMonth()-stateDateOfBirth.getMonth();
+    const checkYear=stateJoinedDate.getFullYear()-stateDateOfBirth.getFullYear();
     if(checkDay>=0&&checkMonth==0&&checkYear==18||checkYear>18||checkYear==18&&checkMonth>0)
     { 
       dispatch(userManage.add_user(createUser));
@@ -76,12 +86,12 @@ export default function CreateUser() {
   ];
 
   useEffect(()=>{
-    setCreateUser({...createUser,DateOfBirth:dateOfBirth!=null?dateOfBirth.toLocaleDateString():""})
-  },[dateOfBirth])
+    setCreateUser({...createUser,DateOfBirth:stateDateOfBirth!=null?stateDateOfBirth:null})
+  },[stateDateOfBirth])
 
   useEffect(()=>{
-    setCreateUser({...createUser,JoinedDate:joinedDate!=null?joinedDate.toLocaleDateString():""})
-  },[joinedDate])
+    setCreateUser({...createUser,JoinedDate:stateJoinedDate!=null?stateJoinedDate:null})
+  },[stateJoinedDate])
 
   return (
     <div>
@@ -130,7 +140,7 @@ export default function CreateUser() {
                   <label>Date of Birth</label>
                 </div>
                 <div className="col-8">
-                  <DateTimePicker onChange={setDateOfBirth} value={dateOfBirth} format="dd/MM/y" clearIcon maxDate={new Date()} className="dateTimeCreateUser"></DateTimePicker>
+                  <DateTimePicker onChange={setDateOfBirth} value={stateDateOfBirth} format="dd/MM/y" clearIcon maxDate={new Date()} className="dateTimeCreateUser"></DateTimePicker>
                 </div>
               </div>
 
@@ -155,7 +165,7 @@ export default function CreateUser() {
                   <label>Joined Date</label>
                 </div>
                 <div className="col-8">
-                  <DateTimePicker format="dd/MM/y" onChange={setJoinedDate} value={joinedDate} clearIcon minDate={dateOfBirth} className="dateTimeCreateUser"></DateTimePicker>
+                  <DateTimePicker format="dd/MM/y" value={stateJoinedDate} onChange={setJoinedDate} clearIcon minDate={stateDateOfBirth} className="dateTimeCreateUser"></DateTimePicker>
                   <label className="validateErr">{err.Check18YearsOld}</label>
                 </div>
               </div>

@@ -19,3 +19,34 @@
 #userListLastTd{
     border: 0;
 }
+.popupDisable{
+    background-color: white;
+    width: 450px;
+}
+.row1{
+    border: 1px solid rgb(95, 95, 95);
+    border-radius:  5px;
+    background-color: rgb(241, 241, 241);
+    color:rgb(207, 35, 56);
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    align-content: center;
+    padding-left: 20px;
+}
+
+.row2{
+    border: 1px solid rgb(95, 95, 95);
+    height: 120px;
+    display: flex;
+    align-content: center;
+    padding-left: 20px;
+    background-color: white;
+}
+
+.row2_1{
+    margin-bottom: 20px;
+}
+.row2_2 .col-2{
+    margin-right: 15px;
+}
