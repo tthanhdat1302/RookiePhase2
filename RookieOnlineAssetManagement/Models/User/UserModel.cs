@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RookieOnlineAssetManagement.Models
+namespace RookieOnlineAssetManagement.Models.User
 {
     public class UserModel
     {

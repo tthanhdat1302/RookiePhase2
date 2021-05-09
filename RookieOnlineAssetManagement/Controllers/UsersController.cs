@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RookieOnlineAssetManagement.Data;
 using RookieOnlineAssetManagement.Entities;
-using RookieOnlineAssetManagement.Models;
+using RookieOnlineAssetManagement.Models.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RookieOnlineAssetManagement.Services;
+using RookieOnlineAssetManagement.Services.Interface;
 
 namespace RookieOnlineAssetManagement.Controllers
 {

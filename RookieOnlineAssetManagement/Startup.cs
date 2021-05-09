@@ -7,7 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RookieOnlineAssetManagement.Data;
 using RookieOnlineAssetManagement.Entities;
-using RookieOnlineAssetManagement.Services;
+using RookieOnlineAssetManagement.Services.Interface;
+using RookieOnlineAssetManagement.Services.Service;
 using System.Threading.Tasks;
 
 namespace RookieOnlineAssetManagement

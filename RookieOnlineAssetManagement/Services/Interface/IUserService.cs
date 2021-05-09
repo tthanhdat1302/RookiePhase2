@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RookieOnlineAssetManagement.Data;
 using RookieOnlineAssetManagement.Entities;
-using RookieOnlineAssetManagement.Models;
+using RookieOnlineAssetManagement.Models.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RookieOnlineAssetManagement.Services
+namespace RookieOnlineAssetManagement.Services.Interface
 {
     public interface IUserService
     {

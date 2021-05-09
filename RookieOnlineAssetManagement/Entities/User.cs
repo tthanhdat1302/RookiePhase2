@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +23,8 @@ namespace RookieOnlineAssetManagement.Entities
         public bool Gender { get; set; }
         public bool Type { get; set; }
         public bool Disable { get; set; }
-        public string Password{get;set;}
+        public virtual ICollection<Assignment> LenderAssets { get; set; }
+        public virtual ICollection<Assignment> BorrowerAssets { get; set; }
+        public virtual ICollection<Returning> UserAcceptAssets { get; set; }
     }
 }

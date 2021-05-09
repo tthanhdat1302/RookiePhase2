@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RookieOnlineAssetManagement.Data;
 using RookieOnlineAssetManagement.Entities;
-using RookieOnlineAssetManagement.Models;
+using RookieOnlineAssetManagement.Models.User;
+using RookieOnlineAssetManagement.Services.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RookieOnlineAssetManagement.Services
+namespace RookieOnlineAssetManagement.Services.Service
 {
     public class UserService : IUserService
     {
@@ -65,7 +66,7 @@ namespace RookieOnlineAssetManagement.Services
                 Gender = createUserModel.Gender,
                 Type = createUserModel.Type,
                 Disable = false,
-                Password = "1"
+                PasswordHash = "1"
             };
 
             _dbContext.Users.Add(user);

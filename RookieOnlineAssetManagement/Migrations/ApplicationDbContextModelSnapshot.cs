@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RookieOnlineAssetManagement.Data;
-using RookieOnlineAssetManagement.Entities;
 
 namespace RookieOnlineAssetManagement.Migrations
 {
@@ -154,6 +153,115 @@ namespace RookieOnlineAssetManagement.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Asset", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AssetName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("InstalledDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Specification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StateAsset")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Assignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssetId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("AssignedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BorrowerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StateAssignment")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetId");
+
+                    b.HasIndex("BorrowerId");
+
+                    b.HasIndex("LenderId");
+
+                    b.ToTable("Assignments");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Category", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Returning", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReturnedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StateReturning")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserAccepteId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("UserAccepteId");
+
+                    b.HasIndex("UserRequestId");
+
+                    b.ToTable("Returnings");
+                });
+
             modelBuilder.Entity("RookieOnlineAssetManagement.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -207,9 +315,6 @@ namespace RookieOnlineAssetManagement.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,10 +351,29 @@ namespace RookieOnlineAssetManagement.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
 
-            modelBuilder.Entity<User>().HasData(
-      new User { Id = 1, StaffCode = "SD0001", Gender = true, Type = true, DateOfBirth = new DateTime(1999, 2, 13), JoinedDate = new DateTime(2021, 3, 15), UserName = "admin", Password = "admin", FirstName = "Dat", LastName = "Tran Thanh" });
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c6dcae01-f16c-46a2-af1a-a69a4132ecae",
+                            DateOfBirth = new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Disable = false,
+                            EmailConfirmed = false,
+                            FirstName = "Dat",
+                            Gender = true,
+                            JoinedDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Tran Thanh",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumberConfirmed = false,
+                            StaffCode = "SD0001",
+                            TwoFactorEnabled = false,
+                            Type = true,
+                            UserName = "dattt"
+                        });
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
@@ -300,6 +424,74 @@ namespace RookieOnlineAssetManagement.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Asset", b =>
+                {
+                    b.HasOne("RookieOnlineAssetManagement.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Assignment", b =>
+                {
+                    b.HasOne("RookieOnlineAssetManagement.Entities.Asset", "Asset")
+                        .WithMany()
+                        .HasForeignKey("AssetId");
+
+                    b.HasOne("RookieOnlineAssetManagement.Entities.User", "Borrower")
+                        .WithMany("BorrowerAssets")
+                        .HasForeignKey("BorrowerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RookieOnlineAssetManagement.Entities.User", "Lender")
+                        .WithMany("LenderAssets")
+                        .HasForeignKey("LenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Asset");
+
+                    b.Navigation("Borrower");
+
+                    b.Navigation("Lender");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.Returning", b =>
+                {
+                    b.HasOne("RookieOnlineAssetManagement.Entities.Assignment", "Assignment")
+                        .WithMany()
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RookieOnlineAssetManagement.Entities.User", "UserAccept")
+                        .WithMany("UserAcceptAssets")
+                        .HasForeignKey("UserAccepteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RookieOnlineAssetManagement.Entities.User", "UserRequest")
+                        .WithMany()
+                        .HasForeignKey("UserRequestId");
+
+                    b.Navigation("Assignment");
+
+                    b.Navigation("UserAccept");
+
+                    b.Navigation("UserRequest");
+                });
+
+            modelBuilder.Entity("RookieOnlineAssetManagement.Entities.User", b =>
+                {
+                    b.Navigation("BorrowerAssets");
+
+                    b.Navigation("LenderAssets");
+
+                    b.Navigation("UserAcceptAssets");
                 });
 #pragma warning restore 612, 618
         }
