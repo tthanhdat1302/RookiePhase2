@@ -301,6 +301,9 @@ namespace RookieOnlineAssetManagement.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -357,7 +360,7 @@ namespace RookieOnlineAssetManagement.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6dcae01-f16c-46a2-af1a-a69a4132ecae",
+                            ConcurrencyStamp = "9db090af-78df-4940-9804-dcb144367f5c",
                             DateOfBirth = new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Disable = false,
                             EmailConfirmed = false,
@@ -365,6 +368,7 @@ namespace RookieOnlineAssetManagement.Migrations
                             Gender = true,
                             JoinedDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Tran Thanh",
+                            Location = "HCM",
                             LockoutEnabled = false,
                             PasswordHash = "1",
                             PhoneNumberConfirmed = false,
@@ -372,6 +376,27 @@ namespace RookieOnlineAssetManagement.Migrations
                             TwoFactorEnabled = false,
                             Type = true,
                             UserName = "dattt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "abe91282-06b4-4a5c-8bec-384967432151",
+                            DateOfBirth = new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Disable = false,
+                            EmailConfirmed = false,
+                            FirstName = "Vuong",
+                            Gender = true,
+                            JoinedDate = new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Nguyen Van",
+                            Location = "HN",
+                            LockoutEnabled = false,
+                            PasswordHash = "1",
+                            PhoneNumberConfirmed = false,
+                            StaffCode = "SD0002",
+                            TwoFactorEnabled = false,
+                            Type = true,
+                            UserName = "vuongnv"
                         });
                 });
 

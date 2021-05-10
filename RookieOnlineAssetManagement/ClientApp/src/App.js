@@ -24,6 +24,8 @@ import ManageUsersPage from "./components/users/Index";
 import CreateUserPage from "./components/users/CreateUser";
 import EditUserPage from "./components/users/EditUser";
 
+import Login from './components/login/Index'
+
 axios.interceptors.request.use((config) => {
   return config;
 });
@@ -70,6 +72,8 @@ function App() {
         <Route exact path="/user" component={ManageUsersPage}></Route>
         <Route path="/user/create" component={CreateUserPage}></Route>
         <Route path="/user/edit/:id" component={EditUserPage}></Route>
+
+        <Route exact path="/login" component={Login}></Route>
       </Switch>
     </BrowserRouter>
   );

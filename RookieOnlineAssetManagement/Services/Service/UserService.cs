@@ -26,13 +26,13 @@ namespace RookieOnlineAssetManagement.Services.Service
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
             return await _dbContext.Users
-                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type, Disable = x.Disable }).Where(x => x.Disable == false)
+                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type, Disable = x.Disable,Location=x.Location }).Where(x => x.Disable == false)
                 .ToListAsync();
         }
         public async Task<ActionResult<UserModel>> GetUsersById(int id)
         {
             return await _dbContext.Users
-                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type, Disable = x.Disable }).FirstOrDefaultAsync(x => x.Disable == false && x.Id == id);
+                .Select(x => new UserModel { Id = x.Id, StaffCode = x.StaffCode, FirstName = x.FirstName, LastName = x.LastName, UserName = x.UserName, DateOfBirth = x.DateOfBirth, Gender = x.Gender, JoinedDate = x.JoinedDate, Type = x.Type, Disable = x.Disable,Location=x.Location }).FirstOrDefaultAsync(x => x.Disable == false && x.Id == id);
         }
 
         public async Task CreateUser(CreateUserModel createUserModel)
@@ -66,7 +66,8 @@ namespace RookieOnlineAssetManagement.Services.Service
                 Gender = createUserModel.Gender,
                 Type = createUserModel.Type,
                 Disable = false,
-                PasswordHash = "1"
+                PasswordHash = "1",
+                Location=createUserModel.Location
             };
 
             _dbContext.Users.Add(user);

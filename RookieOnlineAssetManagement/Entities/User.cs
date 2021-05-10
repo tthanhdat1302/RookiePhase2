@@ -23,6 +23,7 @@ namespace RookieOnlineAssetManagement.Entities
         public bool Gender { get; set; }
         public bool Type { get; set; }
         public bool Disable { get; set; }
+        public string Location{get;set;}
         public virtual ICollection<Assignment> LenderAssets { get; set; }
         public virtual ICollection<Assignment> BorrowerAssets { get; set; }
         public virtual ICollection<Returning> UserAcceptAssets { get; set; }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RookieOnlineAssetManagement.Migrations
 {
-    public partial class Rookie : Migration
+    public partial class NewRookie : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,6 +36,7 @@ namespace RookieOnlineAssetManagement.Migrations
                     Gender = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<bool>(type: "bit", nullable: false),
                     Disable = table.Column<bool>(type: "bit", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -269,8 +270,13 @@ namespace RookieOnlineAssetManagement.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Disable", "Email", "EmailConfirmed", "FirstName", "Gender", "JoinedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StaffCode", "TwoFactorEnabled", "Type", "UserName" },
-                values: new object[] { 1, 0, "c6dcae01-f16c-46a2-af1a-a69a4132ecae", new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null, false, "Dat", true, new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tran Thanh", false, null, null, null, "1", null, false, null, "SD0001", false, true, "dattt" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Disable", "Email", "EmailConfirmed", "FirstName", "Gender", "JoinedDate", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StaffCode", "TwoFactorEnabled", "Type", "UserName" },
+                values: new object[] { 1, 0, "9db090af-78df-4940-9804-dcb144367f5c", new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null, false, "Dat", true, new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tran Thanh", "HCM", false, null, null, null, "1", null, false, null, "SD0001", false, true, "dattt" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Disable", "Email", "EmailConfirmed", "FirstName", "Gender", "JoinedDate", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StaffCode", "TwoFactorEnabled", "Type", "UserName" },
+                values: new object[] { 2, 0, "abe91282-06b4-4a5c-8bec-384967432151", new DateTime(1999, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null, false, "Vuong", true, new DateTime(2021, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nguyen Van", "HN", false, null, null, null, "1", null, false, null, "SD0002", false, true, "vuongnv" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

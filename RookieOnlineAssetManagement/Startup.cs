@@ -57,7 +57,11 @@ namespace RookieOnlineAssetManagement
 
             services.AddCors();
 
-            services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<IAssignmentService, AssignmentService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IReturningService, ReturningService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -84,8 +88,8 @@ namespace RookieOnlineAssetManagement
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
-            app.UseCors(options=>options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+
+            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -14,6 +14,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
 import Popup from "reactjs-popup";
+import DisablePopUp from './DisablePopUp';
+import DetailPopUp from './DetailPopUp';
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -78,6 +80,7 @@ export default function Index() {
         break;
     }
   };
+
   return (
     <div>
       <Header page="Manage User"></Header>
@@ -128,13 +131,25 @@ export default function Index() {
                 {userList.map((user, index) => (
                   <tr key={index}>
                     <td>{user.staffCode}</td>
-                    <td>{user.lastName + " " + user.firstName}</td>
+                    <Popup modal trigger={<td>{user.lastName + " " + user.firstName}</td>}>
+                        {(close) => (
+                         <DetailPopUp close={close} user={user}></DetailPopUp>
+                        )}
+                    </Popup>
 
                     <td>{user.userName}</td>
 
-                    <td>{new Date(user.joinedDate).toLocaleDateString()}</td>
-
-                    <td>{user.type ? "Admin" : "Staff"}</td>
+                    <Popup modal trigger={<td>{new Date(user.joinedDate).toLocaleDateString()}</td>}>
+                        {(close) => (
+                         <DetailPopUp close={close} user={user}></DetailPopUp>
+                        )}
+                    </Popup>
+                    
+                    <Popup modal trigger={<td>{user.type ? "Admin" : "Staff"}</td>}>
+                        {(close) => (
+                         <DetailPopUp close={close} user={user}></DetailPopUp>
+                        )}
+                    </Popup>
 
                     <td id="userListLastTd">
                       <FontAwesomeIcon
@@ -144,46 +159,9 @@ export default function Index() {
                       />
                     </td>
                     <td id="userListLastTd">
-                      <Popup
-                        modal
-                        trigger={
-                          <FontAwesomeIcon
-                            icon={faTimesCircle}
-                            color="red"
-                            className="cursorIcon"
-                          />
-                        }
-                      >
+                      <Popup modal trigger={<FontAwesomeIcon icon={faTimesCircle} color="red" className="cursorIcon"/>}>
                         {(close) => (
-                          <div className="popupDisable">
-                            <div className="row row1">
-                              <div className="col-12">
-                                <label>Are you sure?</label>
-                              </div>
-                            </div>
-                            <div className="row row2">
-                              <div className="row row2_1">
-                                <div className="col-12">
-                                  <label>
-                                    Do you want to disable this user?
-                                  </label>
-                                </div>
-                              </div>
-                              <div className="row row2_2">
-                                <div className="col-2">
-                                  <Button
-                                    color="danger"
-                                    onClick={() => onDisableUser(user.id)}
-                                  >
-                                    Disable
-                                  </Button>
-                                </div>
-                                <div className="col-2">
-                                  <Button onClick={close}>Cancel</Button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                         <DisablePopUp close={close} userId={user.id} onDisableUser={onDisableUser}></DisablePopUp>
                         )}
                       </Popup>
                     </td>

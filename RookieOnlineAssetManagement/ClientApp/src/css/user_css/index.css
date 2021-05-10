@@ -25,11 +25,11 @@
 }
 .row1{
     border: 1px solid rgb(95, 95, 95);
-    border-radius:  5px;
+    border-radius:  10px;
     background-color: rgb(241, 241, 241);
     color:rgb(207, 35, 56);
     font-weight: bold;
-    height: 50px;
+    height: 60px;
     display: flex;
     align-content: center;
     padding-left: 20px;
